@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+
+<h3 class="text-center">Укажите адрес</h3>
+<div class="row">
+    <div class="col-10">
+        <input placeholder="Укажите адрес и нажмите на кнопку отправить" id="Adress_Raw" class="form-control" />
+    </div>
+    <div class="col-2">
+        <button onclick="sendAddress()" class="btn btn-outline-primary">Отправить</button>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-12">
+        <textarea style="height:460px" class="form-control" id="Result"></textarea>
+    </div>
+</div>
+
+
+
+
+<script>
+    function sendAddress() {
+        const address = document.getElementById('Adress_Raw').value;
+
+        const encodedAddress = encodeURIComponent(address);
+
+        const url = `/API/Get?adress=${encodedAddress}`;
+
+        fetch(url, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('Result').value = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('Result').value = 'Произошла ошибка: ' + error;
+            });
+    }
+</script>
+
