@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Dadata_API.Controllers
 {
-    [EnableCors]
+    [EnableCors("AllowAll")]
     public class APIController : Controller
     {
         private readonly IMapper _mapper;
